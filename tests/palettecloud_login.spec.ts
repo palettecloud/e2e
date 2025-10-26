@@ -1,8 +1,17 @@
 import { test, expect } from '@playwright/test';
-import { login } from './helpers/auth';
+import { LoginPage } from './pages/LoginPage';
 
 test('PaletteCloud CMS Admin Login', async ({ page, baseURL }) => {
-  await login(page, baseURL as string);
+  const loginPage = new LoginPage(page);
+
+  await loginPage.navigateToCmsLoginPage(baseURL as string);
+
+  const password = process.env.PASSWORD;
+  if (!password) {
+    throw new Error('環境変数 PASSWORD が設定されていません。');
+  }
+
+  await loginPage.login('admin', password);
 
   // ログイン後のページに遷移したことを確認するアサーションを追加
   // 例: await expect(page).toHaveURL(/dashboard/);
