@@ -2,12 +2,16 @@ import { test, expect } from '@playwright/test';
 import { CompanySwitchPage } from './pages/CompanySwitchPage';
 import { HomePage } from './pages/HomePage';
 import { LoginPage } from './pages/LoginPage';
+import { MobileAppsIndexPage } from './pages/MobileAppsIndexPage';
+import { MobileAppDetailPage } from './pages/MobileAppDetailPage';
 
 test('アプリ情報への遷移テスト', async ({ page, baseURL }) => {
 
   const homePage = new HomePage(page);
   const loginPage = new LoginPage(page);
   const companySwitchPage = new CompanySwitchPage(page);
+  const mobileAppsIndexPage = new MobileAppsIndexPage(page);
+  const mobileAppDetailPage = new MobileAppDetailPage(page);
 
   await test.step('1. Navigate to CMS Login Page and Login', async () => {
     await loginPage.navigateToCmsLoginPage(baseURL as string);
@@ -16,9 +20,7 @@ test('アプリ情報への遷移テスト', async ({ page, baseURL }) => {
     if (!password) {
       throw new Error('環境変数 PASSWORD が設定されていません。');
     }
-
     await loginPage.login('mtaro', password);
-    console.log('ログインに成功しました。');
   });
 
   await test.step('2. Select "株式会社パレット不動産（sample）" from the company dropdown', async () => {
@@ -37,7 +39,21 @@ test('アプリ情報への遷移テスト', async ({ page, baseURL }) => {
     await homePage.waitForPageReady();
   });
 
-  await test.step('6. AppInfo表示確認', async () => {
+  await test.step('6. AppInfo一覧表示確認', async () => {
     await homePage.clickAppInfo();
+    await mobileAppsIndexPage.waitForPageReady(); // 一覧ページも待つように追加
+  });
+
+  await test.step('7. AppInfo詳細表示確認', async () => {
+    await mobileAppsIndexPage.clickFirstAppDetailButton();
+    await mobileAppDetailPage.waitForPageReady(); // 詳細ページが読み込まれるのを待つ
+    await expect(mobileAppDetailPage.pageTitle).toHaveText('アプリ情報'); // 詳細ページのタイトルをアサート
+  });
+
+  await test.step('8. タブ切り替え確認', async () => {
+    await mobileAppDetailPage.clickIosAppTab();
+    await mobileAppDetailPage.clickAndroidStoreInfoTab();
+    await mobileAppDetailPage.clickIosStoreInfoTab();
+    await mobileAppDetailPage.clickAndroidAppTab(); // 元のタブに戻る
   });
 });
