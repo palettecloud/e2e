@@ -20,7 +20,6 @@ export class LoginPage {
     await expect(this.page).toHaveURL(/cms/); // URLがCMSパスを含むことを確認
     await this.paletteIdLoginLink.click();
     await expect(this.page).toHaveURL(/auth/); // 認証ページに遷移したことを確認
-    console.log('ログイン画面に到達しました。');
   }
 
   async login(username: string, passwordValue: string) {

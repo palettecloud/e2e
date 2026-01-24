@@ -14,17 +14,14 @@ export class CompanySwitchPage {
   async selectCompany(companyName: string) {
     await expect(this.switchButton).toBeVisible();
     await this.companyDropdown.selectOption({ label: companyName });
-    console.log(`Selected company: ${companyName}`);
   }
 
   async confirmSwitch() {
     await expect(this.switchButton).toBeVisible();
     await this.switchButton.click();
-    console.log('Clicked "切り替え" button.');
   }
 
   async verifyCompanySwitched(companyName: string) {
     await expect(this.page.getByText(companyName)).toBeAttached();
-    console.log(`Company switch verified: ${companyName}`);
   }
 }
