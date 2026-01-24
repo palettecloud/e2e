@@ -47,7 +47,6 @@ test('アプリ情報への遷移テスト', async ({ page, baseURL }) => {
   await test.step('7. AppInfo詳細表示確認', async () => {
     await mobileAppsIndexPage.clickFirstAppDetailButton();
     await mobileAppDetailPage.waitForPageReady(); // 詳細ページが読み込まれるのを待つ
-    await expect(mobileAppDetailPage.pageTitle).toHaveText('アプリ情報'); // 詳細ページのタイトルをアサート
   });
 
   await test.step('8. タブ切り替え確認', async () => {

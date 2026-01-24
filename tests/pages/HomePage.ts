@@ -18,17 +18,13 @@ export class HomePage {
     // タイトルが画面に表示されるまで待つ
     await expect(this.appHomeTitle).toBeVisible({ timeout: 15000 });
     await expect(this.appHomeTitle).toHaveText('メニュー');
-
-    console.log('HomePage is ready.');
   }
 
   /**
    * 「アプリ情報」メニューをクリックします
    */
   async clickAppInfo() {
-      // クリック操作を実行
-    await this.appInfoLink.click(),
-    console.log('Clicked "アプリ情報" link and navigated.');
+    await this.appInfoLink.click();
   }
 
   /**
@@ -42,6 +38,5 @@ export class HomePage {
     // 【ガード条件】指定された名前のリンクが存在し、表示されているか確認
     await expect(menuLink).toBeVisible({ timeout: 15000 });
     await menuLink.click();
-    console.log(`Clicked "${menuName}" link.`);
   }
 }
