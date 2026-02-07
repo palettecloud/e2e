@@ -4,6 +4,9 @@ import { HomePage } from './pages/HomePage';
 import { LoginPage } from './pages/LoginPage';
 import { MobileAppsIndexPage } from './pages/MobileAppsIndexPage';
 import { MobileAppDetailPage } from './pages/MobileAppDetailPage';
+import { SideNavComponent } from './pages/SideNavComponent';
+import { DevicesIndexPage } from './pages/DevicesIndexPage';
+import { PushMessagesIndexPage } from './pages/PushMessagesIndexPage';
 
 test('アプリ情報への遷移テスト', async ({ page, baseURL }) => {
 
@@ -12,6 +15,9 @@ test('アプリ情報への遷移テスト', async ({ page, baseURL }) => {
   const companySwitchPage = new CompanySwitchPage(page);
   const mobileAppsIndexPage = new MobileAppsIndexPage(page);
   const mobileAppDetailPage = new MobileAppDetailPage(page);
+  const sideNav = new SideNavComponent(page);
+  const deviceIndexPage = new DevicesIndexPage(page);
+  const pushMessagesIndexPage = new PushMessagesIndexPage(page);
 
   await test.step('1. Navigate to CMS Login Page and Login', async () => {
     await loginPage.navigateToCmsLoginPage(baseURL as string);
@@ -54,5 +60,25 @@ test('アプリ情報への遷移テスト', async ({ page, baseURL }) => {
     await mobileAppDetailPage.clickAndroidStoreInfoTab();
     await mobileAppDetailPage.clickIosStoreInfoTab();
     await mobileAppDetailPage.clickAndroidAppTab(); // 元のタブに戻る
+  });
+
+  await test.step('9. サイドナビからデバイス情報一覧へ遷移', async () => {
+    await sideNav.navigateToSubMenu('アプリ情報', 'デバイス情報');
+    await expect(page.getByRole('heading', { name: 'デバイス情報', level: 2 })).toBeVisible();
+  });
+
+  await test.step('10. 検索ボタン確認', async () => {
+    await deviceIndexPage.search({});
+    await expect(page.getByRole('heading', { name: 'デバイス情報', level: 2 })).toBeVisible();
+  });
+
+  await test.step('11. サイドナビからPUSH通知配信履歴へ遷移', async () => {
+    await sideNav.navigateToSubMenu('アプリ情報', 'PUSH通知配信履歴');
+    await expect(page.getByRole('heading', { name: 'PUSH通知配信履歴', level: 2 })).toBeVisible();
+  });
+
+  await test.step('12. 検索ボタン確認', async () => {
+    await pushMessagesIndexPage.search({});
+    await expect(page.getByRole('heading', { name: 'PUSH通知配信履歴', level: 2 })).toBeVisible();
   });
 });
