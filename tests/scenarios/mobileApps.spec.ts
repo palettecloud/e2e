@@ -1,12 +1,12 @@
 import { test, expect } from '@playwright/test';
-import { CompanySwitchPage } from './pages/CompanySwitchPage';
-import { HomePage } from './pages/HomePage';
-import { LoginPage } from './pages/LoginPage';
-import { MobileAppsIndexPage } from './pages/MobileAppsIndexPage';
-import { MobileAppDetailPage } from './pages/MobileAppDetailPage';
-import { SideNavComponent } from './pages/SideNavComponent';
-import { DevicesIndexPage } from './pages/DevicesIndexPage';
-import { PushMessagesIndexPage } from './pages/PushMessagesIndexPage';
+import { CompanySwitchPage } from '../pages/CompanySwitchPage';
+import { HomePage } from '../pages/HomePage';
+import { LoginPage } from '../pages/LoginPage';
+import { MobileAppsIndexPage } from '../pages/MobileAppsIndexPage';
+import { MobileAppDetailPage } from '../pages/MobileAppDetailPage';
+import { SideNavComponent } from '../pages/SideNavComponent';
+import { DevicesIndexPage } from '../pages/DevicesIndexPage';
+import { PushMessagesIndexPage } from '../pages/PushMessagesIndexPage';
 
 test('アプリ情報への遷移テスト', async ({ page, baseURL }) => {
 
