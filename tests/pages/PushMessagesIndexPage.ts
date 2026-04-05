@@ -25,10 +25,6 @@ export class PushMessagesIndexPage {
     this.resultsTable = page.locator('table.table');
   }
 
-  async goto() {
-    await this.page.goto('/cms/push_v2/messages');
-  }
-
   async search(params: {
     title?: string;
     body?: string;
@@ -58,9 +54,5 @@ export class PushMessagesIndexPage {
       });
     }
     await this.searchButton.click();
-  }
-
-  async getDetailButtonForRow(row: number) {
-    return this.resultsTable.locator('tbody tr').nth(row).getByRole('link', { name: '詳細' });
   }
 }

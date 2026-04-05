@@ -27,14 +27,4 @@ export class HomePage {
     await this.appInfoLink.click();
   }
 
-  /**
-   * 指定したメニュー名を動的にクリックします
-   * @param menuName メニュー名 (例: '物件', '入居者', 'アプリ情報')
-   */
-  async clickMenuByName(menuName: string) {
-    const menuLink = this.page.locator('.app-home-menu li').filter({
-      has: this.page.locator('.app-home-menu__name', { hasText: new RegExp(`^${menuName}$`) })
-    }).getByRole('link');
-    await menuLink.click();
-  }
 }

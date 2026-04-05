@@ -27,10 +27,6 @@ export class DevicesIndexPage {
     this.resultsTable = page.locator('table.table');
   }
 
-  async goto() {
-    await this.page.goto('/cms/devices');
-  }
-
   async search(params: {
     installDateFrom?: string;
     installDateTo?: string;
@@ -62,9 +58,5 @@ export class DevicesIndexPage {
       await this.customerIdentityCodeInput.fill(params.customerIdentityCode);
     }
     await this.searchButton.click();
-  }
-
-  async getDetailButtonForRow(row: number) {
-    return this.resultsTable.locator('tbody tr').nth(row).getByRole('link', { name: '詳細' });
   }
 }
