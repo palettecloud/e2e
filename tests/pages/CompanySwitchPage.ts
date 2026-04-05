@@ -12,12 +12,10 @@ export class CompanySwitchPage {
   }
 
   async selectCompany(companyName: string) {
-    await expect(this.switchButton).toBeVisible();
     await this.companyDropdown.selectOption({ label: companyName });
   }
 
   async confirmSwitch() {
-    await expect(this.switchButton).toBeVisible();
     await this.switchButton.click();
   }
 

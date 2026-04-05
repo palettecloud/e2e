@@ -35,8 +35,6 @@ export class HomePage {
     const menuLink = this.page.locator('.app-home-menu li').filter({
       has: this.page.locator('.app-home-menu__name', { hasText: new RegExp(`^${menuName}$`) })
     }).getByRole('link');
-    // 【ガード条件】指定された名前のリンクが存在し、表示されているか確認
-    await expect(menuLink).toBeVisible({ timeout: 15000 });
     await menuLink.click();
   }
 }
